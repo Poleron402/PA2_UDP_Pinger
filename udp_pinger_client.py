@@ -38,3 +38,7 @@ print("Summary values:\nmin_rtt = "
       +min(info)+" ms\nmax_rtt = "
       +max(info)+ " ms\navg_rtt = "+sum(info)/10+
       " ms\nPacket loss: "+ lost_packets*10 + ".00%")
+
+
+
+>>>>>>> 4fd68ab (hi)
