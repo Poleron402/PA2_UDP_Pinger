@@ -40,5 +40,3 @@ print("Summary values:\nmin_rtt = "
       " ms\nPacket loss: "+ lost_packets*10 + ".00%")
 
 
-
->>>>>>> 4fd68ab (hi)
