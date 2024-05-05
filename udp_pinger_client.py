@@ -22,14 +22,13 @@ while counter <= 10:
       rtt = (time2-time1)*1000
       info.append(rtt)
       print(data+" rtt = "+str(rtt)+" ms")
-    except TimeoutError as e:
-      if isinstance(e, socket.timeout):
+    except timeout:
         lost_packets += 1
         print("Request timed out")
     counter+=1
 print("Summary values:\nmin_rtt = "
       +str(min(info))+" ms\nmax_rtt = "
       +str(max(info))+ " ms\navg_rtt = "+str(sum(info)/10)+
-      " ms\nPacket loss: "+ lost_packets*10 + ".00%")
+      " ms\nPacket loss: "+ str(lost_packets*10) + ".00%")
 
 
