@@ -2,7 +2,7 @@ from socket import *
 import time
 
 HOST = "10.0.0.1"
-PORT = 17171
+PORT = 1588
 
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 clientSocket.connect((HOST, PORT))
@@ -16,18 +16,20 @@ while counter <= 10:
       time1 = time.time()
       byte_data =data.encode('utf-8')
       clientSocket.sendall(byte_data)
-      data, _ = clientSocket.recv(1024)
+      data = clientSocket.recv(2048)
+      data = data.decode('utf-8')
       time2 = time.time()
       rtt = (time2-time1)*1000
       info.append(rtt)
       print(data+" rtt = "+str(rtt)+" ms")
-    except clientSocket.timeout():
-      lost_packets += 1
-      print("Request timed out")
+    except TimeoutError as e:
+      if isinstance(e, socket.timeout):
+        lost_packets += 1
+        print("Request timed out")
     counter+=1
 print("Summary values:\nmin_rtt = "
-      +min(info)+" ms\nmax_rtt = "
-      +max(info)+ " ms\navg_rtt = "+sum(info)/10+
+      +str(min(info))+" ms\nmax_rtt = "
+      +str(max(info))+ " ms\navg_rtt = "+str(sum(info)/10)+
       " ms\nPacket loss: "+ lost_packets*10 + ".00%")
 
 
