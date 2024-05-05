@@ -8,15 +8,27 @@ from socket import socket, AF_INET, SOCK_DGRAM
 # 1. Create a UDP socket. Be sure to use SOCK_DGRAM since we are working with UDP packets
 # 2. Assign IP address and port number to socket
 # 3. Initialze a variable to count the number of pings
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket.bind(("10.0.0.1", 17171))
+ping_count = 0
 
 def main():
     # TODO:
     # 1. Start an infinite loop
-    # 2. Count the pings received using the previously initialized variable
-    # 3. Generate a random number between 1 and 10 (inclusive)
-    # 4. Receive the client packet along with the address it is coming from
-    # 5. IF conditions for packet loss simulation are met, THEN consider the packet lost and do not respond
-    # 6. Otherwise, the server responds
+    while True:
+      # 2. Count the pings received using the previously initialized variable
+      ping_count += 1
+      # 3. Generate a random number between 1 and 10 (inclusive)
+      random = random.randint(1, 10)
+      # 4. Receive the client packet along with the address it is coming from
+      data, addr = serverSocket.recvfrom(1024)
+      # 5. IF conditions for packet loss simulation are met, THEN consider the packet lost and do not respond
+      if ping_count > 1 and random <= 4:
+        break
+      # 6. Otherwise, the server responds
+      else:
+        serverSocket.sendto(data, addr)
+
 
 if __name__ == "__main__":
   main()
