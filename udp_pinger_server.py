@@ -10,9 +10,10 @@ from socket import socket, AF_INET, SOCK_DGRAM
 # 3. Initialze a variable to count the number of pings
 serverSocket = socket(AF_INET, SOCK_DGRAM)
 serverSocket.bind(("10.0.0.1", 17171))
-ping_count = 0
+
 
 def main():
+    ping_count = 0
     # TODO:
     # 1. Start an infinite loop
     while True:
