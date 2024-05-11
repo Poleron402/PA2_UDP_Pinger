@@ -21,14 +21,10 @@ while counter <= 10:
       time2 = time.time()
       rtt = (time2-time1)*1000
       info.append(rtt)
-      print(data+" rtt = "+str(rtt)+" ms")
+      print(data + ": rtt = {:.3f} ms".format(rtt))
     except timeout:
         lost_packets += 1
-        print("Request timed out")
+        print(data + ": Request timed out")
     counter+=1
-print("Summary values:\nmin_rtt = "
-      +str(min(info))+" ms\nmax_rtt = "
-      +str(max(info))+ " ms\navg_rtt = "+str(sum(info)/10)+
-      " ms\nPacket loss: "+ str(lost_packets*10) + ".00%")
-
-
+print("Summary values:\nmin_rtt = {:.3f} ms\nmax_rtt = {:.3f} ms\navg_rtt = {:.3f} ms\nPacket loss: {:.2f}%".format(
+    min(info), max(info), sum(info)/len(info), lost_packets * 10))
